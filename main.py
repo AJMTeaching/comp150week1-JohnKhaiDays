@@ -3,9 +3,24 @@
 # Lab 1
 # Problem 1
 # Put your solution here, make sure I can run it by running this file. Do not submit it commented out.
+my_list = [1, 5, 'apple', 20.5]
+print(my_list[2])
+my_list.append(10)
+print(my_list)
+my_list.remove(20.5)
+print(my_list)
+my_list.reverse
+print(my_list)
 
 # Problem 2
 # Put your solution here, make sure I can run it by running this file. Do not submit it commented out.
+person = {'name' : 'John' , 'age' : '30' , 'job' : 'teacher'}
+print(person['job'])
+person['city'] = 'Paris'
+print(person)
+del person['age']
+for key, value in person.items():
+    print(f"{key}: {value}")
 
 # -----------------------------------------------------------------------------
 
@@ -24,6 +39,17 @@ def test(did_pass):
 
 # Function 1: count_vowels
 def count_vowels(s: str) -> int:
+
+    vowels = "aeiouAEIOU"
+    vowel_count = 0
+    for letter in s:
+        if letter in vowels: 
+
+            vowel_count += 1
+    return vowel_count
+      
+        
+
     """
     Count the number of vowels in a string.
 
@@ -35,6 +61,19 @@ def count_vowels(s: str) -> int:
     """
     # TODO: Implement this function
     pass
+
+    
+
+def extend_list(list_to_extend_into, list_to_append_items_from):
+    for item in list_to_append_items_from:
+        list_to_extend_into.append(item)
+    return list_to_extend_into
+
+def extend_list_with_partial_list(list_to_extend_into, list_to_append_items_from, first_index_to_append_from):
+    items_to_append = list_to_append_items_from[first_index_to_append_from:]
+    for item in items_to_append:
+        list_to_extend_into.append(item)
+    return list_to_extend_into
 
 
 # Unit Tests for count_vowels
@@ -53,6 +92,7 @@ def test_count_vowels():
 
 # Function 2: merge_lists
 def merge_lists(list1: list, list2: list) -> list:
+    pass
     """
     Merge two sorted lists into a single sorted list.
 
@@ -63,8 +103,58 @@ def merge_lists(list1: list, list2: list) -> list:
     Returns:
     - list: A new sorted list containing all elements from list1 and list2
     """
-    # TODO: Implement this function
-    pass
+    # # for loop
+    if not list1:
+        return list2
+    if not list2:
+        return list1
+    merged_list = []
+    i1, i2 = 0, 0
+    while len(merged_list) < len(list1) + len(list2):
+        if list1[i1] < list2[i2]:
+            merged_list.append(list1[i1])
+            if i1+1 == len(list1):
+                for item in list2[i2:]:
+                    merged_list.append(item)
+            else:
+                i1 += 1
+        else:
+            merged_list.append(list2[i2])
+            if i2 + 1 == len(list2):
+                for item in list1[i1:]:
+                    merged_list.append(item)
+            else:
+                i2 += 1
+    return merged_list
+
+                
+
+    
+    #  how_many_times = len(list1) + len(list2)
+    #  index1 = 0
+    #  index2 = 0
+    #  index_list = range(0,how_many_times)
+    #  for index in index_list:
+    #      if list1[index1] > list2[index2]:
+    #          merged_list.append(list2(index2))
+    #          index2 += 1
+    #      else:
+    #          merged_list.append(list1[index1])
+    #          index1 += 1
+    #      if index1 == len(list1) or index2 == len(list2):
+    #          if index1 == len(list1)
+    #              #we have no more numbers to add to merged list from index 1 
+    #              #add the remaining numbers from list2 to merged list
+    #              while index2 < len(list2):
+    #                  merged_list.append(list2[index2])
+    #                  index1 += 1
+    #                   return merged_list
+    #              else:
+    #                 #we have no more numbers to addd to merged list from index 2 
+    #                 #add the remaning numbers from list2 to the merged list
+
+    # # TODO: Implement this function
+    # pass
 
 
 # Unit Tests for merge_lists
@@ -97,6 +187,12 @@ def word_lengths(words: list) -> list:
     # TODO: Implement this function
     pass
 
+    word_lengths: list = []
+    for words in words:
+        word_lengths.append(len(words))
+    return word_lengths
+
+
 
 # Unit Tests for word_lengths
 def test_word_lengths():
@@ -105,7 +201,7 @@ def test_word_lengths():
     test(lengths == [5, 5, 6])
     test(word_lengths([]) == [])
     test(word_lengths(["word"]) == [4])
-    test(word_lengths(["short", "mediummm", "longesttttt"]) == [5, 8, 10])
+    test(word_lengths(["short", "mediummm", "longesttttt"]) == [5, 8, 11])
     test(word_lengths(["", "a", "ab", "abc"]) == [0, 1, 2, 3])
     test(word_lengths(["  ", "a b", " c "]) == [2, 3, 3])
 
@@ -123,7 +219,8 @@ def reverse_string(s: str) -> str:
     """
     # TODO: Implement this function
     pass
-
+    #   def reverse_string(s: str) -> str:
+    return s[:: -1]
 
 # Unit Tests for reverse_string
 def test_reverse_string():
@@ -150,7 +247,24 @@ def intersection(list1: list, list2: list) -> list:
     Returns:
     - list: The intersection of the two lists
     """
+    #step : create intersection list
+    intersection_list: list = []
+    #step 1 pick a list 
+    #I am alwas picking list
+    #step 2: iterate over the list
+    for number in list1:
+        #is number in list2
+        if number in list2: 
+            intersection_list.append(number)
+    #the for loop is over now
+    #is tere anything else we need to do?
+    intersection_list = list(set(intersection_list))
+    return intersection_list
+    #step 3: fir each item, check if its in the other list
+    #step 4: if it is add to the intersection list, oh wait , we need to
+    #step 4.5: how do we remove duplicates
     # TODO: Implement this function
+
     pass
 
 
